@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en"> 
+<head> 
+  <meta charset="UTF-8"> 
+  <title>Hamada Live</title> 
+  <link rel="icon" href="https://bein.alraqi-tv.com/logo/alraqi-tv.png"> 
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <style>
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  font-size: 0px;
+}
+#jwplayerDiv {
+  width: 100%;
+  height: 100%;
+}
+  </style> 
+</head> 
+<body> 
+  <div id="jwplayerDiv"></div> 
+
+  <script src="https://content.jwplatform.com/libraries/SAHhwvZq.js"></script> 
+  <script type="text/javascript">
+    // الحصول على متغيرات الرابط
+    const urlParams = new URLSearchParams(window.location.search);
+
+    const l = urlParams.get('l'); // رابط الفيديو
+    const k = urlParams.get('k'); // مفتاح DRM إذا كان موجودًا
+
+    // التحقق من وجود الرابط
+    if (!l) {
+      console.error("رابط الفيديو غير متوفر.");
+    } else {
+      // إعداد الإعدادات الأساسية للمشغل
+      const playerConfig = {
+        file: l,
+        autostart: true,
+        width: "100%",
+        height: "100%",
+        mute: false,
+        logo: {
+          file: "logo.png",
+          hide: false,
+          position: "bottom-right",
+        },
+      };
+
+      // إذا كان هناك مفتاح DRM
+      if (k) {
+        const parts = k.split(":");
+        if (parts.length === 2) {
+          playerConfig.drm = {
+            clearkey: {
+              keyId: parts[0],
+              key: parts[1],
+            },
+          };
+        } else {
+          console.error("صيغة مفتاح DRM غير صحيحة.");
+        }
+      }
+
+      // تشغيل المشغل
+      jwplayer("jwplayerDiv").setup(playerConfig);
+    }
+  </script> 
+</body>
+</html>

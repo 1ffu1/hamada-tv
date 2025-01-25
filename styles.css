@@ -1,0 +1,169 @@
+/* styles.css */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #ffffff;
+    line-height: 1.6;
+}
+html, body {
+    overflow: auto; /* السماح بالتمرير */
+}
+
+html::-webkit-scrollbar, 
+body::-webkit-scrollbar {
+    display: none; /* إخفاء شريط السحب في المتصفحات التي تدعم WebKit */
+}
+
+html {
+    -ms-overflow-style: none; /* إخفاء شريط السحب في Internet Explorer */
+    scrollbar-width: none; /* إخفاء شريط السحب في Firefox */
+}
+
+/* رأس الموقع */
+header {
+    background-color: #1e1e1e;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #272727;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+.header-left {
+    display: flex;
+    gap: 10px;
+    position: relative;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.icon-button img {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1);
+}
+
+.icon-button:hover {
+    transform: scale(1.1);
+}
+
+.menu-options {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    background-color: #272727;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.menu-options a {
+    color: #ffa726;
+    text-decoration: none;
+}
+
+.menu-options a:hover {
+    text-decoration: underline;
+}
+
+.hidden {
+    display: none;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 50px;
+    height: auto;
+}
+
+/* الأقسام */
+main {
+    padding: 20px;
+}
+
+.match-section {
+    margin-bottom: 40px;
+}
+
+.match-section h2 {
+    margin-bottom: 10px;
+    background-color: #272727;
+    color: #ffa726;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.slider {
+    display: flex;
+    gap: 10px;
+    overflow-y:hidden;
+    overflow-x: auto;
+    padding: 10px;
+    background-color: #1e1e1e;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.slider::-webkit-scrollbar {
+    height: 8px;
+}
+
+.slider::-webkit-scrollbar-thumb {
+    background: #ffa726;
+    border-radius: 10px;
+}
+
+.slide {
+    height: 135px;
+    min-width: 200px;
+    width: 200px;
+    padding: 15px 15px 20px 15px;
+    background-color: #272727;
+    border-radius: 12px;
+    text-align: center;
+    color: #ffffff;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.slide img {
+    width: 100%; /* عرض الصورة بالكامل */
+    height: 90%; /* ارتفاع الصورة بالكامل */
+   object-fit: cover; /* تفعيل نمط center crop */
+    border-radius: 8px;
+}
+
+.slide p {
+    margin: 0;
+    font-size: 14px;
+    color: #ffffff;
+    font-weight: bold;
+    text-align: center;
+}
+
+.slide:hover {
+    background-color: #ffa726;
+    color: #121212;
+    transition: 0.3s;
+}

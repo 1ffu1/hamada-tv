@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حمادة TV</title>
+    <link rel="stylesheet" href="styles.css">
+ 
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+    
+        // تهيئة Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyCR5WdF0l0KBuCx-g_uY_0G-zNzbJtRlyQ",
+            authDomain: "hamadatv-e8bb3.firebaseapp.com",
+            databaseURL: "https://hamadatv-e8bb3-default-rtdb.firebaseio.com",
+            projectId: "hamadatv-e8bb3",
+            storageBucket: "hamadatv-e8bb3.appspot.com",
+            messagingSenderId: "685555514090",
+            appId: "1:685555514090:web:7d8016340262f61b527593",
+            measurementId: "G-9WQGYVCB05"
+        };
+    
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+    
+        // تحديد المسار
+        const path = "ser/links";
+    
+        // جلب البيانات وإضافة الأقسام ديناميكيًا
+        get(ref(db, path))
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              const mainElement = document.querySelector("main"); // العثور على عنصر <main>
+              const data = snapshot.val();
+    
+              // لكل عنصر في المسار الأساسي
+              Object.keys(data).forEach((key) => {
+                const section = document.createElement("section");
+                section.className = "match-section";
+    
+                // إضافة عنوان القسم
+                section.innerHTML = `
+                  <h2>${key}</h2>
+                  <div class="slider"></div>
+                `;
+    
+                const slider = section.querySelector(".slider");
+                const subData = data[key];
+    
+                // إضافة شرائح بناءً على البيانات داخل العنصر الفرعي
+                Object.keys(subData).forEach((subKey) => {
+                  const slideData = subData[subKey]; // بيانات العنصر الفرعي
+                  const slide = document.createElement("div");
+                  slide.className = "slide";
+    
+                  // جلب الصورة والعنوان والرابط
+                  const imageSrc = slideData.image || "default-image.jpg"; // صورة افتراضية إذا لم تكن موجودة
+                  const title = slideData.title || "عنوان غير متوفر";
+                  const link = slideData.link || "#"; // رابط افتراضي إذا لم يكن موجودًا
+                  const k = slideData["1drm"] || "null";
+
+    
+                  slide.innerHTML = `
+                    <img src="${imageSrc}" alt="${title}">
+                    <p>${title}</p>
+                  `;
+    
+                  // إضافة حدث الضغط
+                  slide.addEventListener("click", () => {
+                    handleSlideClick(link); // استدعاء الدالة مع الرابط
+                    window.location.href = `player.html?l=${link}&k=${k}`;
+                  });
+    
+                  slider.appendChild(slide); // إضافة الشريحة إلى السلايدر
+                });
+    
+                mainElement.appendChild(section); // إضافة القسم إلى <main>
+              });
+            } else {
+              console.log("لا توجد بيانات في المسار المحدد.");
+            }
+          })
+          .catch((error) => {
+            console.error("خطأ في جلب البيانات:", error);
+          });
+    
+        // دالة عند الضغط على العنصر
+        function handleSlideClick(link) {
+          console.log("تم الضغط على العنصر. الرابط:", link);
+        }
+      </script>
+    
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="header-left">
+                <button class="icon-button menu-button">
+                    <img src="list.png" alt="قائمة">
+                </button>
+                <div class="menu-options hidden">
+                    <a href="https://twitter.com" target="_blank">تويتر</a>
+                    <a href="https://facebook.com" target="_blank">فيسبوك</a>
+                    <a href="https://instagram.com" target="_blank">إنستغرام</a>
+                </div>
+                <button class="icon-button share-button">
+                    <img src="share-icon.png" alt="مشاركة">
+                </button>
+            </div>
+            <div class="header-right">
+                <img src="logo.png" alt="شعار الموقع" class="logo">
+            </div>
+        </div>
+    </header>
+
+    <main>
+      
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
